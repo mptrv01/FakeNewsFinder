@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environment and IDE
+.venv/
+.vscode/
+
+# Temporary and operating-system files
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Private configuration and user data
+config.py
+users.csv
+history.csv
+
+# Older or duplicate datasets
+news_dataset_old.csv
+data/
+
+# Local environment files
+.env

@@ -1,0 +1,405 @@
+/* Основни настройки */
+:root {
+    --navy: #1e293b;
+    --blue: #3b82f6;
+    --blue-dark: #2563eb;
+    --red: #ef4444;
+    --red-dark: #dc2626;
+    --green-bg: #dcfce7;
+    --green-text: #166534;
+    --yellow-bg: #fef3c7;
+    --yellow-text: #92400e;
+    --border: #e2e8f0;
+    --muted: #64748b;
+    --page-bg: #e7edf6;
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #1e293b;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: #1e3a5f;
+}
+
+h1 {
+    margin-bottom: 24px;
+    font-size: 2.1rem;
+}
+
+h2 {
+    margin-bottom: 16px;
+}
+
+h3 {
+    margin-bottom: 12px;
+}
+
+a {
+    color: inherit;
+}
+
+/* Главна страница */
+.main-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.card {
+    margin-bottom: 20px;
+    padding: 26px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+}
+
+.input-section .input-group {
+    margin-bottom: 16px;
+}
+
+.input-section textarea,
+.input-section .url-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    color: #1e293b;
+    font-size: 16px;
+}
+
+.input-section textarea {
+    min-height: 170px;
+    resize: vertical;
+}
+
+.input-section textarea:focus,
+.input-section .url-input:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.18);
+}
+
+.btn-submit {
+    padding: 11px 22px;
+    border: none;
+    border-radius: 6px;
+    background: var(--blue);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.btn-submit:hover {
+    background: var(--blue-dark);
+}
+
+/* Резултат от анализа */
+.risk-badge {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+}
+
+.risk-badge.low,
+.risk-badge.нисък {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.risk-badge.medium,
+.risk-badge.среден {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.risk-badge.high,
+.risk-badge.висок {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.risk-messages {
+    margin: 20px 0;
+}
+
+.risk-messages ul {
+    padding-left: 20px;
+}
+
+.risk-messages li {
+    margin-bottom: 8px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+}
+
+.stat-item {
+    padding: 16px;
+    border-radius: 8px;
+    background: #f8fafc;
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    color: var(--blue);
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.stat-label {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.ml-results {
+    margin-top: 24px;
+}
+
+.model-prediction {
+    margin-bottom: 18px;
+}
+
+.prediction-bar {
+    width: 100%;
+    height: 30px;
+    margin: 10px 0;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #e2e8f0;
+}
+
+.prediction-fill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-width: 45px;
+    border-radius: 15px;
+    background: linear-gradient(90deg, #3b82f6, #22c55e);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.prediction-plot {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+    border-radius: 6px;
+}
+
+.empty-result {
+    padding: 24px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* Страница „Моята история“ */
+.history-page {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.history-header h1 {
+    margin: 0;
+}
+
+.history-actions {
+    display: flex;
+    gap: 14px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 11px 20px;
+    border: none;
+    border-radius: 6px;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--blue);
+}
+
+.btn-primary:hover {
+    background: var(--blue-dark);
+}
+
+.btn-danger {
+    background: var(--red);
+}
+
+.btn-danger:hover {
+    background: var(--red-dark);
+}
+
+.history-card {
+    overflow: hidden;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+}
+
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.history-table thead {
+    background: #f8fafc;
+    color: #334155;
+}
+
+.history-table th {
+    padding: 18px 24px;
+    border-bottom: 2px solid var(--border);
+    font-weight: 700;
+}
+
+.history-table td {
+    padding: 22px 24px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+.history-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.text-preview {
+    width: 45%;
+    color: #1e293b;
+    line-height: 1.5;
+}
+
+.predictions-cell {
+    width: 35%;
+}
+
+.prediction-row {
+    margin-bottom: 10px;
+}
+
+.prediction-row:last-child {
+    margin-bottom: 0;
+}
+
+.score {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.score-low {
+    background: var(--green-bg);
+    color: var(--green-text);
+}
+
+.score-medium {
+    background: var(--yellow-bg);
+    color: var(--yellow-text);
+}
+
+.score-high {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.date-cell {
+    width: 20%;
+    color: #475569;
+    white-space: nowrap;
+}
+
+.empty-history {
+    padding: 48px 24px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.14);
+    text-align: center;
+}
+
+.empty-history h2 {
+    margin-bottom: 8px;
+}
+
+.empty-history p {
+    margin-bottom: 20px;
+    color: var(--muted);
+}
+
+/* Адаптация за телефон */
+@media (max-width: 800px) {
+    body {
+        padding: 10px;
+    }
+
+    .main-container,
+    .history-page {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .history-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .history-actions {
+        flex-wrap: wrap;
+    }
+
+    .history-card {
+        overflow-x: auto;
+    }
+
+    .history-table {
+        min-width: 760px;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}

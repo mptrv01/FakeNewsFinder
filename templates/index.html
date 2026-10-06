@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Анализ на достоверността на новини{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <h1>Анализ на достоверността на новини</h1>
+
+    <div class="card input-section">
+        <h2>Въведете текст или URL за анализ</h2>
+
+        <form action="/" method="POST">
+            <div class="input-group">
+                <textarea name="news_text" placeholder="Поставете съдържанието на статията тук...">{% if news_text %}{{ news_text }}{% endif %}</textarea>
+            </div>
+
+            <div class="input-group">
+                <input type="url" name="news_url" placeholder="Или поставете URL на статията..." class="url-input">
+            </div>
+
+            <button type="submit" class="btn-submit">Анализирай</button>
+        </form>
+
+        {% if error %}
+        <p style="margin-top: 15px; color: #b91c1c; font-weight: 600;">
+            {{ error }}
+        </p>
+        {% endif %}
+    </div>
+
+    {% if result %}
+    <div class="card result-section">
+        <h2>Резултат от анализа</h2>
+        {% if result.source_assessment %}
+<div class="source-assessment source-{{ result.source_assessment.status }}">
+    <strong>Проверка на източника</strong>
+    <p>{{ result.source_assessment.message }}</p>
+</div>
+{% endif %}
+
+        <div class="risk-badge {{ result.risk_level|lower }}">
+            Оценка: {{ result.risk_level }} (Точки: {{ result.risk_score }})
+        </div>
+
+        {% if result.risk_messages %}
+        <div class="risk-messages">
+            <h3>Открити рискови индикатори:</h3>
+            <ul>
+                {% for msg in result.risk_messages %}
+                <li>⚠️ {{ msg }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value">{{ result.word_count }}</span>
+                <span class="stat-label">Брой думи</span>
+            </div>
+
+            <div class="stat-item">
+                <span class="stat-value">{{ result.character_count }}</span>
+                <span class="stat-label">Брой символи</span>
+            </div>
+        </div>
+
+        {% if result.ml_predictions %}
+        <div class="ml-results">
+            <h3>Прогнози на ML моделите</h3>
+
+            <div class="model-predictions">
+                {% for model_name, prediction in result.ml_predictions.items() %}
+                    {% if prediction and prediction|length > 1 %}
+                    <div class="model-prediction">
+                        <h4>{{ model_name|upper }}</h4>
+
+                        <div class="prediction-bar">
+                            <div class="prediction-fill" style="width: {{ '%.2f'|format(prediction[1] * 100) }}%">
+                                {{ "%.2f"|format(prediction[1] * 100) }}%
+                            </div>
+                        </div>
+
+                        <p>Вероятност за фалшива новина: {{ "%.2f"|format(prediction[1] * 100) }}%</p>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

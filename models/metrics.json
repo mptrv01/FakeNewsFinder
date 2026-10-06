@@ -1,0 +1,26 @@
+{
+    "total_records": 120,
+    "real_records": 60,
+    "fake_records": 60,
+    "test_records": 24,
+    "metrics": {
+        "naive_bayes": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0
+        },
+        "svm": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0
+        },
+        "neural_net": {
+            "accuracy": 0.9583,
+            "precision": 0.9231,
+            "recall": 1.0,
+            "f1_score": 0.96
+        }
+    }
+}

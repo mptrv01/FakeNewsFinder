@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Моята история | Fake News Finder{% endblock %}
+
+{% block content %}
+<div class="history-page">
+    <div class="history-header">
+        <h1>Моята история на анализите</h1>
+
+        <div class="history-actions">
+            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                Нов анализ
+            </a>
+
+            {% if history_entries %}
+            <form method="POST" action="{{ url_for('clear_history') }}">
+                <button
+                    type="submit"
+                    class="btn btn-danger"
+                    onclick="return confirm('Сигурни ли сте, че искате да изчистите цялата история?');"
+                >
+                    Изчисти историята
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if history_entries %}
+    <div class="history-card">
+        <table class="history-table">
+            <thead>
+                <tr>
+                    <th>Проверен текст</th>
+                    <th>Оценка на моделите</th>
+                    <th>Дата и час</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for entry in history_entries %}
+                {% set naive_bayes = entry["preds"].get("naive_bayes", [0, 0]) %}
+                {% set svm = entry["preds"].get("svm", [0, 0]) %}
+                {% set neural_net = entry["preds"].get("neural_net", [0, 0]) %}
+
+                <tr>
+                    <td class="text-preview">
+                        {{ entry["text"] }}
+                    </td>
+
+                    <td class="predictions-cell">
+                        {% set nb_score = naive_bayes[1] * 100 %}
+                        <div class="prediction-row">
+                            <strong>Naive Bayes:</strong>
+                            {% if nb_score >= 60 %}
+                            <span class="score score-high">{{ "%.2f"|format(nb_score) }}%</span>
+                            {% elif nb_score >= 35 %}
+                            <span class="score score-medium">{{ "%.2f"|format(nb_score) }}%</span>
+                            {% else %}
+                            <span class="score score-low">{{ "%.2f"|format(nb_score) }}%</span>
+                            {% endif %}
+                        </div>
+
+                        {% set svm_score = svm[1] * 100 %}
+                        <div class="prediction-row">
+                            <strong>SVM:</strong>
+                            {% if svm_score >= 60 %}
+                            <span class="score score-high">{{ "%.2f"|format(svm_score) }}%</span>
+                            {% elif svm_score >= 35 %}
+                            <span class="score score-medium">{{ "%.2f"|format(svm_score) }}%</span>
+                            {% else %}
+                            <span class="score score-low">{{ "%.2f"|format(svm_score) }}%</span>
+                            {% endif %}
+                        </div>
+
+                        {% set nn_score = neural_net[1] * 100 %}
+                        <div class="prediction-row">
+                            <strong>Невронна мрежа:</strong>
+                            {% if nn_score >= 60 %}
+                            <span class="score score-high">{{ "%.2f"|format(nn_score) }}%</span>
+                            {% elif nn_score >= 35 %}
+                            <span class="score score-medium">{{ "%.2f"|format(nn_score) }}%</span>
+                            {% else %}
+                            <span class="score score-low">{{ "%.2f"|format(nn_score) }}%</span>
+                            {% endif %}
+                        </div>
+                    </td>
+
+                    <td class="date-cell">
+                        {{ entry["timestamp"] or entry["time"] or "Няма данни" }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-history">
+        <h2>Все още нямате направени анализи</h2>
+        <p>Направете първия си анализ, за да се появи тук.</p>
+        <a href="{{ url_for('index') }}" class="btn btn-primary">
+            Към анализатора
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

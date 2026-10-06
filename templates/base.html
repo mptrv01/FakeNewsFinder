@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fake News Finder{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar" style="background: #1e293b; padding: 15px; display: flex; justify-content: space-between; align-items: center; color: white;">
+        <a href="/" style="color: white; font-weight: bold; text-decoration: none; font-size: 20px;">📰 Fake News Finder</a>
+        <div class="nav-links" style="display: flex; gap: 20px; list-style: none;">
+            <a href="/" style="color: white; text-decoration: none;">Начало</a>
+            {% if current_user.is_authenticated %}
+                <a href="/history" style="color: white; text-decoration: none;">Моята История</a>
+                
+                {# Поправената проверка за роля на администратора #}
+                {% if current_user.role == 'admin' %}
+                    <a href="/admin" style="background: #e63946; padding: 5px 10px; border-radius: 5px; color: white; text-decoration: none; font-weight: bold;">Админ Панел</a>
+                {% endif %}
+                
+                <a href="/logout" style="color: #cbd5e1; text-decoration: none;">Изход ({{ current_user.username }})</a>
+            {% else %}
+                <a href="/login" style="color: white; text-decoration: none;">Вход</a>
+                <a href="/register" style="color: white; text-decoration: none;">Регистрация</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container" style="padding: 20px; max-width: 1200px; margin: 0 auto;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}" style="padding: 10px; margin-bottom: 15px; border-radius: 5px; background: #fee2e2; color: #991b1b;">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
